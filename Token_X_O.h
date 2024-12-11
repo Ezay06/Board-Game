@@ -79,13 +79,13 @@ bool Token_X_O_Board<T>::update_board(int x, int y, T symbol){
     if ((initial_x >= 0 && initial_x < this->rows) && (initial_y >= 0 && initial_y < this->columns)
     && (dest_x >= 0 && dest_x < this->rows) && (dest_y >= 0 && dest_y < this->columns)){
         //Checks if the initial coordinates point to a player's token and the destination coordinates point to an empty cell
-        if (this->board[initial_x][initial_y] = symbol && this->board[dest_x][dest_y] = 0){
+        if (this->board[initial_x][initial_y] = toupper(symbol) && this->board[dest_x][dest_y] = 0){
             //Checks if the token will move vertically or horizontally only    
             if ((dest_x == initial_x && (dest_y == initial_y + 1 || dest_y == initial_y - 1))
             || (dest_y == initial_y && (dest_x == initial_x + 1 || dest_x == initial_x - 1))){
 
                 this->board[initial_x][initial_y] = 0;
-                this->board[dest_x][dest_y] = symbol;
+                this->board[dest_x][dest_y] = toupper(symbol);
                 this->n_moves++;
                 return true;
             }
