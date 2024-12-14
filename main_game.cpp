@@ -34,9 +34,9 @@ int main(){
         }
 
 
-        cout << "Enter Player 2 name: ";
+        cout << "Enter Player O name: ";
         cin >> player2name;
-        cout << "Choose Player 2 type:\n";
+        cout << "Choose Player O type:\n";
         cout << "1. Human\n";
         cout << "2. Random Computer\n";
         cin >> choice;
@@ -65,14 +65,14 @@ int main(){
     }
 
 
-    else if (choice = 2){
+    else if (choice == 2){
         Player<char>* players[2];
         Word_Board<char>* B = new Word_Board<char>();
         string player1name, player2name;
 
-        cout << "Enter Player X name: ";
+        cout << "Enter Player 1 name: ";
         cin >> player1name;
-        cout << "Choose Player X type:\n";
+        cout << "Choose Player 1 type:\n";
         cout << "1. Human\n";
         cout << "2. Random Computer\n";
         cin >> choice;
@@ -120,9 +120,9 @@ int main(){
         Player<char>* players[2];
         Token_X_O_Board<char>* B = new Token_X_O_Board<char>();
         string player1name, player2name;
-        cout << "Enter Player X name: ";
+        cout << "Enter Player 1 name: ";
         cin >> player1name;
-        cout << "Choose Player X type:\n";
+        cout << "Choose Player 1 type:\n";
         cout << "1. Human\n";
         cout << "2. Random Computer\n";
         cin >> choice;

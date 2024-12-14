@@ -52,7 +52,7 @@ Word_Board<T>::Word_Board(){
     this->board = new char*[this->rows];
     for(int i = 0; i < this->rows; i++){
         this->board[i] = new char[this->columns];
-        for(int j = 0; i < this->columns; j++){
+        for(int j = 0; j < this->columns; j++){
             this->board[i][j] = 0;
         }
     }
@@ -91,7 +91,7 @@ void Word_Board<T>::display_board(){
 template <typename T>
 bool Word_Board<T>::is_win(){
     string word;
-    pair<typename unordered_set<string>::iteraotor, bool> result;
+    pair<typename unordered_set<string>::iterator, bool> result;
     //Check rows
     for (int i = 0; i < this->rows; i++){
         word += this->board[i][0]; word += this->board[i][1]; word += this->board[i][2];

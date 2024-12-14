@@ -75,7 +75,7 @@ void Pyramid_Board<T>::display_board(){
         if (i == 0){
             cout << "\n                      | ";
             cout << "(" << i << "," << 2 << ")";
-            cout << setw(2) << this->board[i][j] << " |";
+            cout << setw(2) << this->board[i][2] << " |";
             cout << "\n-----------------------------";
         }
 
@@ -104,19 +104,19 @@ void Pyramid_Board<T>::display_board(){
 template <typename T>
 bool Pyramid_Board<T>::is_win(){
     //Check center column
-    if (this->board[0][2] == this->board[1][2] && this->board[0][2] == this->board[2,2] && this->board[0][2] != 0){
+    if (this->board[0][2] == this->board[1][2] && this->board[0][2] == this->board[2][2] && this->board[0][2] != 0){
         return true;
     }
 
     //Check diagonals
     if (((this->board[0][2] == this->board[1][1] && this->board[0][2] == this->board[2][0]) ||
     (this->board[0][2] == this->board[1][3] && this->board[0][2] == this->board[2][4])) && this->board[0][2] != 0){
-        return true
+        return true;
     }
 
     //Check second row
     if (this->board[1][1] == this->board[1][2] && this->board[1][1] == this->board[1][3] && this->board[1][1] != 0){
-        return true
+        return true;
     }
 
     //Check third row
