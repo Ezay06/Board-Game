@@ -69,21 +69,25 @@ Token_X_O_Board<T>::Token_X_O_Board(){
 }
 
 template <typename T>
-bool Token_X_O_Board<T>::update_board(int x, int y, T symbol){
-    string initial_coord = to_string(x);
-    string dest_coord = to_string(y);
-    int initial_x = initial_coord[0] - '0'; int initial_y = initial_coord[1] - '0';
-    int dest_x = dest_coord[0] - '0'; int dest_y = dest_coord[1] - '0';
+bool Token_X_O_Board<T>::update_board(int x, int y, T symbol) {
+    // Decode coordinates directly using integer math
+    int initial_x = x / 10; // Extract row from the encoded integer
+    int initial_y = x % 10; // Extract column from the encoded integer
+    int dest_x = y / 10;    // Extract row from the encoded integer
+    int dest_y = y % 10;    // Extract column from the encoded integer
 
-    //Checks if the initial and destination coordinates are valid in the board
-    if ((initial_x >= 0 && initial_x < this->rows) && (initial_y >= 0 && initial_y < this->columns)
-    && (dest_x >= 0 && dest_x < this->rows) && (dest_y >= 0 && dest_y < this->columns)){
-        //Checks if the initial coordinates point to a player's token and the destination coordinates point to an empty cell
-        if (this->board[initial_x][initial_y] == toupper(symbol) && this->board[dest_x][dest_y] == 0){
-            //Checks if the token will move vertically or horizontally only    
-            if ((dest_x == initial_x && (dest_y == initial_y + 1 || dest_y == initial_y - 1))
-            || (dest_y == initial_y && (dest_x == initial_x + 1 || dest_x == initial_x - 1))){
+    // Check if the initial and destination coordinates are within bounds
+    if ((initial_x >= 0 && initial_x < this->rows) && (initial_y >= 0 && initial_y < this->columns) &&
+        (dest_x >= 0 && dest_x < this->rows) && (dest_y >= 0 && dest_y < this->columns)) {
 
+        // Check if the initial position contains the player's token and the destination is empty
+        if (this->board[initial_x][initial_y] == toupper(symbol) && this->board[dest_x][dest_y] == 0) {
+
+            // Check if the move is horizontal or vertical (not diagonal)
+            if ((dest_x == initial_x && abs(dest_y - initial_y) == 1) ||
+                (dest_y == initial_y && abs(dest_x - initial_x) == 1)) {
+
+                // Perform the move
                 this->board[initial_x][initial_y] = 0;
                 this->board[dest_x][dest_y] = toupper(symbol);
                 this->n_moves++;
@@ -91,8 +95,7 @@ bool Token_X_O_Board<T>::update_board(int x, int y, T symbol){
             }
         }
     }
-
-    return false;
+    return false; // Invalid move
 }
 
 template <typename T>
