@@ -100,23 +100,26 @@ void GameManager<T>::run()
 {
     int x, y;
 
-    boardPtr->display_board(); // Display the board at the start
+    boardPtr->display_board();
 
     while (!boardPtr->game_is_over())
     {
-        for (int i = 0; i < 2; ++i) // Loop through the two players
+        for (int i : {0, 1})
         {
-            players[i]->getmove(x, y); // Get the move from the current player
-            boardPtr->display_board(); // Display the board after each move
-
+            players[i]->getmove(x, y);
+            while (!boardPtr->update_board(x, y, players[i]->getsymbol()))
+            {
+                players[i]->getmove(x, y);
+            }
+            boardPtr->display_board();
             if (boardPtr->is_win())
             {
-                cout << players[i]->getname() << " wins!" << endl;
+                cout << players[i]->getname() << " wins\n";
                 return;
             }
             if (boardPtr->is_draw())
             {
-                cout << "It's a draw!" << endl;
+                cout << "Draw!\n";
                 return;
             }
         }
