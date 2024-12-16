@@ -167,7 +167,7 @@ int main()
         FourInRowBoard<char> *B = new FourInRowBoard<char>();
         string player1Name, player2Name;
 
-        cout << "Welcome to the Four-in-a-Row Game! :)\n";
+        cout << "Welcome to Four-in-a-Row!\n";
 
         // Set up player 1
         cout << "Enter Player 1 (X) name: ";
@@ -265,7 +265,7 @@ int main()
         NumBoard<int> *B = new NumBoard<int>();
         string player1Name, player2Name;
 
-        cout << "Welcome to FCAI Numerical Tic Tac Toe Game. :)\n";
+        cout << "Welcome to Numerical Tic Tac Toe!\n";
 
         // Set up player 1
         cout << "Enter Player 1 (Odd Numbers) name: ";
@@ -352,7 +352,7 @@ int main()
         Ultimate_Board<char> *B = new Ultimate_Board<char>();
         string playerXName, player2Name;
 
-        cout << "Welcome to FCAI Ultimate Tic Tac Toe Game. :)\n";
+        cout << "Welcome to Ultimate Tic Tac Toe!\n";
 
         // Set up player 1
         cout << "Enter Player 1 name: ";

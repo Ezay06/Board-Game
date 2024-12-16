@@ -252,7 +252,7 @@ void Ultimate_Player<T>::getmove(int &x, int &y)
 {
     while (true)
     {
-        cout << this->name << "'s turn. Enter cooridinates 2 numbers (0-8) separated by spaces : ";
+        cout << this->name << " Enter cooridinates (x y) between 0-8 separated by spaces : ";
         cin >> x >> y;
 
         if (x < 0 || x > 8 || y < 0 || y > 8)
