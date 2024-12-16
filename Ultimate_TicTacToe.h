@@ -278,8 +278,8 @@ Ultimate_RandomPlayer<T>::Ultimate_RandomPlayer(T symbol) : RandomPlayer<T>(symb
 template <typename T>
 void Ultimate_RandomPlayer<T>::getmove(int &x, int &y)
 {
-    x = rand() % (9);
-    y = rand() % (9);
+    x = rand() % 9;
+    y = rand() % 9;
 }
 
 #endif

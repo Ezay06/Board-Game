@@ -6,6 +6,8 @@
 #include "5x5X_O.h"
 #include "Misere_X_O_.h"
 #include "FourInRow.h"
+#include "Ultimate_TicTacToe.h"
+#include "3x3_Num_TicTacToe.h"
 
 using namespace std;
 
@@ -76,10 +78,12 @@ int main()
     cout << "Choose which game to play:" << endl;
     cout << "1 - Pyramidic Tic-Tac-Toe\n";
     cout << "2 - Word Tic-Tac-Toe\n";
-    cout << "3 - Token Tick-Tack-Toe\n";
+    cout << "3 - Token Tick-Tac-Toe\n";
     cout << "4 - 5x5 Tic-Tac-Toe\n";
-    cout << "5 - Misere Toe-Tack-Tick\n";
+    cout << "5 - Misere Toe-Tac-Tic\n";
     cout << "6 - Four-In-Row\n";
+    cout << "7 - Numerical Tic-Tac-Toe\n";
+    cout << "8 - Ultimate Tic-Tac-Toe\n";
     cin >> choice;
 
     Player<char> *players[2] = {nullptr, nullptr};
@@ -244,6 +248,164 @@ int main()
         // Create the game manager and run the game
         GameManager<char> FourInRow_game(B, players);
         FourInRow_game.run();
+
+        // Clean up
+        delete B;
+        for (int i = 0; i < 2; ++i)
+        {
+            delete players[i];
+        }
+    }
+    case 7:
+    { // Numerical Tic-Tac-Toe
+        int option;
+        Player<int> *players[2];
+        NumBoard<int> *B = new NumBoard<int>();
+        string player1Name, player2Name;
+
+        cout << "Welcome to FCAI Numerical Tic Tac Toe Game. :)\n";
+
+        // Set up player 1
+        cout << "Enter Player 1 (Odd Numbers) name: ";
+        cin >> player1Name;
+        cout << "Choose Player 1 type:\n";
+        cout << "1. Human\n";
+        cout << "2. Random Computer\n";
+        cin >> option;
+
+        switch (option)
+        {
+        case 1:
+            players[0] = new NumPlayer<int>(player1Name, {1, 3, 5, 7, 9});
+            break;
+        case 2:
+            players[0] = new Random_NumPlayer<int>({1, 3, 5, 7, 9});
+            break;
+        default:
+            cout << "Invalid choice for Player 1. Exiting the game.\n";
+            return 1;
+        }
+
+        // Set up player 2
+        cout << "Enter Player 2 (Even Numbers) name: ";
+        cin >> player2Name;
+        cout << "Choose Player 2 type:\n";
+        cout << "1. Human\n";
+        cout << "2. Random Computer\n";
+        cin >> option;
+
+        switch (option)
+        {
+        case 1:
+            players[1] = new NumPlayer<int>(player2Name, {2, 4, 6, 8});
+            break;
+        case 2:
+            players[1] = new Random_NumPlayer<int>({2, 4, 6, 8});
+            break;
+        default:
+            cout << "Invalid choice for Player 2. Exiting the game.\n";
+            return 1;
+        }
+
+        // Assign the players to the board
+        for (int i = 0; i < 2; ++i)
+        {
+            players[i]->setBoard(B);
+        }
+
+        // Create the game manager and run the game
+        GameManager<int> Num_game(B, players);
+        Num_game.run();
+
+        // Clean up
+        delete B;
+        for (int i = 0; i < 2; ++i)
+        {
+            delete players[i];
+        }
+    }
+    case 8:
+    {
+        int option;
+        Player<char> *players[2];
+        Ultimate_Board<char> *B = new Ultimate_Board<char>();
+        string playerXName, player2Name;
+
+        cout << "Welcome to FCAI Ultimate Tic Tac Toe Game. :)\n";
+
+        // Set up player 1
+        cout << "Enter Player 1 name: ";
+        cin >> playerXName;
+
+        do
+        {
+            cout << "Choose Player 1 type:\n";
+            cout << "1. Human\n";
+            cout << "2. Random Computer\n";
+            cin >> option;
+
+            if (cin.fail())
+            {
+                cin.clear();
+                cin.ignore(1000, '\n');
+                cout << "Invalid input. Please enter a number (1 or 2).\n";
+                continue;
+            }
+
+            if (option == 1)
+            {
+                players[0] = new Ultimate_Player<char>(playerXName, 'X');
+                break;
+            }
+            else if (option == 2)
+            {
+                players[0] = new Ultimate_RandomPlayer<char>('X');
+                break;
+            }
+            else
+            {
+                cout << "Invalid choice. Please enter 1 or 2.\n";
+            }
+        } while (true);
+
+        // Set up player 2
+        cout << "Enter Player 2 name: ";
+        cin >> player2Name;
+
+        do
+        {
+            cout << "Choose Player 2 type:\n";
+            cout << "1. Human\n";
+            cout << "2. Random Computer\n";
+            cin >> option;
+
+            if (cin.fail())
+            {
+                cin.clear();
+                cin.ignore(1000, '\n');
+                cout << "Invalid input. Please enter a number (1 or 2).\n";
+                continue;
+            }
+
+            if (option == 1)
+            {
+                players[1] = new Ultimate_Player<char>(player2Name, 'O');
+                break;
+            }
+            else if (option == 2)
+            {
+                players[1] = new Ultimate_RandomPlayer<char>('O');
+                break;
+            }
+            else
+            {
+                cout << "Invalid choice. Please enter 1 or 2.\n";
+            }
+        } while (true);
+
+        // Create the game manager and run the game
+        GameManager<char> ultimate_game(B, players);
+        ultimate_game.run();
 
         // Clean up
         delete B;
