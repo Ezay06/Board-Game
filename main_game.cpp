@@ -202,6 +202,7 @@ int main()
             {
                 cout << "Invalid choice. Please enter 1 or 2.\n";
             }
+            break;
         }
 
         // Set up player 2
@@ -255,6 +256,7 @@ int main()
         {
             delete players[i];
         }
+        break;
     }
     case 7:
     { // Numerical Tic-Tac-Toe
@@ -282,7 +284,7 @@ int main()
             players[0] = new Random_NumPlayer<int>({1, 3, 5, 7, 9});
             break;
         default:
-            cout << "Invalid choice for Player 1. Exiting the game.\n";
+            cout << "Invalid choice. Exiting the game.\n";
             return 1;
         }
 
@@ -303,7 +305,7 @@ int main()
             players[1] = new Random_NumPlayer<int>({2, 4, 6, 8});
             break;
         default:
-            cout << "Invalid choice for Player 2. Exiting the game.\n";
+            cout << "Invalid choice. Exiting the game.\n";
             return 1;
         }
 
@@ -323,9 +325,10 @@ int main()
         {
             delete players[i];
         }
+        break;
     }
     case 8:
-    {
+    { // Ultimate Tic-Tac-Toe
         int option;
         Player<char> *players[2];
         Ultimate_Board<char> *B = new Ultimate_Board<char>();
@@ -413,6 +416,7 @@ int main()
         {
             delete players[i];
         }
+        break;
     }
     default:
         if (choice > 6)

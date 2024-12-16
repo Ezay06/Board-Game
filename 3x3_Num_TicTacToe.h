@@ -69,22 +69,14 @@ template <typename T>
 bool NumBoard<T>::update_board(int x, int y, T symbol)
 {
     // Only update if move is valid
-    if (!(x < 0 || x >= this->rows || y < 0 || y >= this->columns) && (this->board[x][y] == 0 || symbol == 0))
+    if (!(x < 0 || x >= this->rows || y < 0 || y >= this->columns) && (this->board[x][y] == 0))
     {
-        if (symbol == 0)
-        {
-            this->n_moves--;
-            this->board[x][y] = 0;
-        }
-        else
-        {
-            this->n_moves++;
-            this->board[x][y] = symbol;
-        }
 
+        this->n_moves++;
+        this->board[x][y] = symbol;
         return true;
     }
-    cout << "Cell occupied. Choose a different cell." << endl;
+
     return false;
 }
 
@@ -234,7 +226,11 @@ void Random_NumPlayer<T>::getmove(int &x, int &y)
                 allowed_nums.erase(it);
             }
 
-            cout << this->getname() << " randomly placed number: " << choice << " at (" << x << ", " << y << ")\n";
+            cout << "Random computer randomly placed number: " << choice << " at (" << x << ", " << y << ")\n";
+        }
+        else
+        {
+            cout << "Random move failed. Trying again..." << endl;
         }
     }
 }
