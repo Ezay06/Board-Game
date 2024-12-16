@@ -11,9 +11,6 @@ using namespace std;
 template <typename T>
 class NumBoard : public Board<T>
 {
-private:
-    vector<T> used_nums;
-
 public:
     NumBoard();
     bool update_board(int x, int y, T symbol);
@@ -21,6 +18,7 @@ public:
     bool is_win();
     bool is_draw();
     bool game_is_over();
+    bool is_cell_empty(int x, int y) const;
 };
 
 template <typename T>
@@ -76,7 +74,6 @@ bool NumBoard<T>::update_board(int x, int y, T symbol)
         this->board[x][y] = symbol;
         return true;
     }
-
     return false;
 }
 
@@ -95,6 +92,16 @@ void NumBoard<T>::display_board()
         cout << "\n-----------------------------";
     }
     cout << endl;
+}
+
+template <typename T>
+bool NumBoard<T>::is_cell_empty(int x, int y) const
+{
+    if (x < 0 || x >= this->rows || y < 0 || y >= this->columns)
+    {
+        return false;
+    }
+    return this->board[x][y] == 0;
 }
 
 // Chech winner
@@ -159,10 +166,11 @@ NumPlayer<T>::NumPlayer(string name, vector<T> nums) : Player<T>(name, 0)
 template <typename T>
 void NumPlayer<T>::getmove(int &x, int &y)
 {
-    bool valid_move = false;
+    bool valid = false;
     int choice;
+    auto board = static_cast<NumBoard<T> *>(this->boardPtr);
 
-    while (!valid_move)
+    while (!valid)
     {
         cout << this->getname() << " Choose a number from your available numbers: ";
         for (int n : allowed_nums)
@@ -172,6 +180,14 @@ void NumPlayer<T>::getmove(int &x, int &y)
         cout << endl;
         cin >> choice;
 
+        if (cin.fail())
+        {
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout << "Invalid input. Please enter a valid integer." << endl;
+            continue;
+        }
+
         auto it = find(allowed_nums.begin(), allowed_nums.end(), choice);
         if (it == allowed_nums.end())
         {
@@ -179,20 +195,32 @@ void NumPlayer<T>::getmove(int &x, int &y)
             continue;
         }
 
-        cout << "\nPlease enter your move's x and y (0 to 2) separated by spaces: ";
+        cout << "\nEnter the coordinates for your move (x y): ";
         cin >> x >> y;
 
-        valid_move = this->boardPtr->update_board(x, y, choice);
+        if (cin.fail())
+        {
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout << "Invalid input. Please enter a valid integer." << endl;
+            continue;
+        }
 
-        if (valid_move)
+        if (x < 0 || x >= 3 || y < 0 || y >= 3)
         {
-            allowed_nums.erase(it);
-            cout << this->getname() << " successfully placed number: " << choice << " at (" << x << ", " << y << ")\n";
+            cout << "Out of range. Try again.\n";
+            continue;
         }
-        else
+
+        if (!board->is_cell_empty(x, y))
         {
-            cout << "Invalid move. The cell is either out of bounds or already occupied. Try again." << endl;
+            cout << "Cell occupied. Try again.\n";
+            continue;
         }
+
+        this->symbol = choice;
+        allowed_nums.erase(it);
+        valid = true;
     }
 }
 
@@ -205,32 +233,27 @@ Random_NumPlayer<T>::Random_NumPlayer(vector<T> nums) : RandomPlayer<T>(0)
 template <typename T>
 void Random_NumPlayer<T>::getmove(int &x, int &y)
 {
-    bool valid_move = false;
-    int choice;
+    bool valid = false;
     srand(time(0));
+    auto board = static_cast<NumBoard<T> *>(this->boardPtr);
 
-    while (!valid_move)
+    while (!valid)
     {
-        choice = allowed_nums[rand() % allowed_nums.size()];
-
+        int choice = allowed_nums[rand() % allowed_nums.size()];
         x = rand() % 3;
         y = rand() % 3;
 
-        valid_move = this->boardPtr->update_board(x, y, choice);
-
-        if (valid_move)
+        if (board->is_cell_empty(x, y))
         {
+
+            this->symbol = choice;
             auto it = find(allowed_nums.begin(), allowed_nums.end(), choice);
             if (it != allowed_nums.end())
             {
                 allowed_nums.erase(it);
             }
-
-            cout << "Random computer randomly placed number: " << choice << " at (" << x << ", " << y << ")\n";
-        }
-        else
-        {
-            cout << "Random move failed. Trying again..." << endl;
+            valid = true;
+            cout << "Random computer chose number: " << choice << " and position (" << x << ", " << y << ")\n";
         }
     }
 }

@@ -273,7 +273,16 @@ int main()
         cout << "Choose Player 1 type:\n";
         cout << "1. Human\n";
         cout << "2. Random Computer\n";
-        cin >> option;
+
+        while (true)
+        {
+            cin >> option;
+            if (option == 1 || option == 2)
+            {
+                break;
+            }
+            cout << "Invalid choice. Please choose again (1 or 2): ";
+        }
 
         switch (option)
         {
@@ -294,7 +303,16 @@ int main()
         cout << "Choose Player 2 type:\n";
         cout << "1. Human\n";
         cout << "2. Random Computer\n";
-        cin >> option;
+
+        while (true)
+        {
+            cin >> option;
+            if (option == 1 || option == 2)
+            {
+                break;
+            }
+            cout << "Invalid choice. Please choose again (1 or 2): ";
+        }
 
         switch (option)
         {
