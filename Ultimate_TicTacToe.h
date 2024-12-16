@@ -272,7 +272,7 @@ void Ultimate_Player<T>::getmove(int &x, int &y)
 template <typename T>
 Ultimate_RandomPlayer<T>::Ultimate_RandomPlayer(T symbol) : RandomPlayer<T>(symbol)
 {
-    srand(static_cast<unsigned int>(time(0)));
+    srand(time(0));
 }
 
 template <typename T>
